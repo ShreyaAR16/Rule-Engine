@@ -20,7 +20,7 @@ def create_rule_api():
     rule_id = insert_rule(rule_string, rule_ast)
     
     # Serialize the AST to a dictionary before returning it
-    return jsonify({"rule_ast": ast_to_dict(rule_ast)}), 200
+    return jsonify({"rule_id": rule_id,"rule_ast": ast_to_dict(rule_ast)}), 200
 
 
 
