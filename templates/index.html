@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule Engine UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #rule-result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rule Engine</h1>
+
+    <!-- Form to create a rule -->
+    <h2>Create a New Rule</h2>
+    <form id="rule-form">
+        <label for="rule">Rule:</label>
+        <input type="text" id="rule" name="rule" placeholder="age > 30 AND department = 'Sales'" required>
+        <button type="submit">Create Rule</button>
+    </form>
+
+    <!-- Div to display rule creation response -->
+    <div id="rule-result"></div>
+
+    <script>
+        document.getElementById('rule-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the rule string from the form
+            const ruleString = document.getElementById('rule').value;
+
+            // Send the rule to the backend API to create the rule
+            fetch('/create_rule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rule: ruleString }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the result
+                if (data.rule_ast) {
+                    document.getElementById('rule-result').textContent = `Rule created successfully! AST: ${JSON.stringify(data.rule_ast)}`;
+                } else if (data.error) {
+                    document.getElementById('rule-result').textContent = `Error: ${data.error}`;
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('rule-result').textContent = 'Error creating the rule.';
+            });
+        });
+    </script>
+</body>
+</html>
