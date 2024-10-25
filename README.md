@@ -1,4 +1,3 @@
-Sure! Here’s a **comprehensive README** for your project, covering all the necessary details like dependencies, build instructions, and design choices:
 
 ---
 
