@@ -191,7 +191,3 @@ To build and run the project, follow these instructions:
 This project is licensed under the MIT License.
 
 ---
-
-Feel free to modify the structure or content of the README based on any additional details you'd like to include. This provides a solid foundation for explaining the project, its setup, and usage.
-
-Let me know if you'd like any further changes or additions!
